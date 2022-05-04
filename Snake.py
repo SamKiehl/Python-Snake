@@ -1,4 +1,4 @@
-import time, random, sys, os
+import time, random, os
 
 points = []
         
@@ -52,10 +52,6 @@ def p(maze): # Prints the maze.
             row += f'{c} '
         print(row)
     # time.sleep(0.15)
-
-import msvcrt
-import time
-
 # class TimeoutExpired(Exception):
 #     pass
 
