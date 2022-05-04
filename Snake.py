@@ -56,21 +56,21 @@ def p(maze): # Prints the maze.
 import msvcrt
 import time
 
-class TimeoutExpired(Exception):
-    pass
+# class TimeoutExpired(Exception):
+#     pass
 
-def input_with_timeout(prompt, timeout, timer=time.monotonic):
-    sys.stdout.write(prompt)
-    sys.stdout.flush()
-    endtime = timer() + timeout
-    result = []
-    while timer() < endtime:
-        if msvcrt.kbhit():
-            result.append(msvcrt.getwche()) #XXX can it block on multibyte characters?
-            if result[-1] == '\r':
-                return ''.join(result[:-1])
-        time.sleep(0.04) # just to yield to other processes/threads
-    raise TimeoutExpired
+# def input_with_timeout(prompt, timeout, timer=time.monotonic):
+#     sys.stdout.write(prompt)
+#     sys.stdout.flush()
+#     endtime = timer() + timeout
+#     result = []
+#     while timer() < endtime:
+#         if msvcrt.kbhit():
+#             result.append(msvcrt.getwche()) 
+#             if result[-1] == '\r':
+#                 return ''.join(result[:-1])
+#         time.sleep(0.04) 
+#     raise TimeoutExpired
 
 def in_front() -> str:
     return maze[coords[0] + IN_FRONT[facing][0]][coords[1] + IN_FRONT[facing][1]]
@@ -110,7 +110,7 @@ def iterate():
 
         while(score < 98):
 
-            print(points)
+            # print(points)
             if not apple:
                 r = coords[0]
                 c = coords[1]
@@ -130,7 +130,7 @@ def iterate():
             #     pass
             time.sleep(0.4)
             inp = f.read()[0::-1]
-            print(inp)
+            # print(inp)
             turn(inp)
 
             p(maze)
@@ -147,7 +147,7 @@ def iterate():
             else:
                 forward()
                 update_points()
-                print(points)
+                # print(points)
             p(maze)
         with(open('./Controls.txt', 'w') as d):    
             d.truncate(0)
