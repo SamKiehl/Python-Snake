@@ -101,52 +101,61 @@ def forward(): # Moves the (character?) forward depending on which direction it 
     points[0] = (coords[0], coords[1])
 
 
-def iterate(times):
+def iterate():
     global points, coords
     # p(maze)
     apple = False
     score = 0
-    for i in range(times):
+    with(open('Controls.txt', 'r') as f):
 
-        print(points)
-        if not apple:
-            r = coords[0]
-            c = coords[1]
-            while maze[r][c] != ' ':
-                r = random.randint(1, 10)
-                c = random.randint(1, 10)
-            maze[r][c] = 'o'
-            apple = True
-        p(maze)
+        while(score < 98):
 
-        inp = ''
-        try:
-            inp = input_with_timeout('>', 0.2)
-        except(TimeoutExpired):
-            pass
-        else:
-            pass
-
-        turn(inp)
-        p(maze)
-        time.sleep(0.2)
-        if(in_front() != 'o' and in_front() != ' '):
-            break
-        elif(in_front() == 'o'):
-            score += 1
-            apple = False
-            points.insert(0, (coords[0] + IN_FRONT[facing][0], coords[1] + IN_FRONT[facing][1]))
-            update_points()
-            maze[coords[0] + IN_FRONT[facing][0]][coords[1] + IN_FRONT[facing][1]] = ICONS[facing]
-            coords = [coords[0] + IN_FRONT[facing][0], coords[1] + IN_FRONT[facing][1]]
-        else:
-            forward()
-            update_points()
             print(points)
-        p(maze)
+            if not apple:
+                r = coords[0]
+                c = coords[1]
+                while maze[r][c] != ' ':
+                    r = random.randint(1, 10)
+                    c = random.randint(1, 10)
+                maze[r][c] = 'o'
+                apple = True
+            p(maze)
+
+            inp = ''
+            # try:
+            #     inp = input_with_timeout('>', 0.2)
+            # except(TimeoutExpired):
+            #     pass
+            # else:
+            #     pass
+            time.sleep(0.4)
+            inp = f.read()[0::-1]
+            print(inp)
+            turn(inp)
+
+            p(maze)
+            time.sleep(0.2)
+            if(in_front() != 'o' and in_front() != ' '):
+                break
+            elif(in_front() == 'o'):
+                score += 1
+                apple = False
+                points.insert(0, (coords[0] + IN_FRONT[facing][0], coords[1] + IN_FRONT[facing][1]))
+                update_points()
+                maze[coords[0] + IN_FRONT[facing][0]][coords[1] + IN_FRONT[facing][1]] = ICONS[facing]
+                coords = [coords[0] + IN_FRONT[facing][0], coords[1] + IN_FRONT[facing][1]]
+            else:
+                forward()
+                update_points()
+                print(points)
+            p(maze)
+        with(open('./Controls.txt', 'w') as d):    
+            d.truncate(0)
+            d.close()
+        f.close()
     print(f'Game Over! Score: {score}')
 
 
 if __name__ == '__main__':
-    iterate(100)
+    iterate()
     
