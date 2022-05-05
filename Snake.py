@@ -2,7 +2,6 @@ import time, random, os
 
 points = []
         
-
 ICONS = {
     'n': '^',
     'e': '>',
@@ -51,22 +50,6 @@ def p(maze): # Prints the maze.
         for c in r:
             row += f'{c} '
         print(row)
-    # time.sleep(0.15)
-# class TimeoutExpired(Exception):
-#     pass
-
-# def input_with_timeout(prompt, timeout, timer=time.monotonic):
-#     sys.stdout.write(prompt)
-#     sys.stdout.flush()
-#     endtime = timer() + timeout
-#     result = []
-#     while timer() < endtime:
-#         if msvcrt.kbhit():
-#             result.append(msvcrt.getwche()) 
-#             if result[-1] == '\r':
-#                 return ''.join(result[:-1])
-#         time.sleep(0.04) 
-#     raise TimeoutExpired
 
 def in_front() -> str:
     return maze[coords[0] + IN_FRONT[facing][0]][coords[1] + IN_FRONT[facing][1]]
@@ -83,7 +66,6 @@ def turn(dir): # Turns the (character?)
     facing = BUTTONS[dir]
     maze[coords[0]][coords[1]] = ICONS[facing]
 
-
 def forward(): # Moves the (character?) forward depending on which direction it is facing.
     global maze, facing, coords, points
     maze[coords[0]][coords[1]] = ' '
@@ -95,7 +77,6 @@ def forward(): # Moves the (character?) forward depending on which direction it 
     coords = (coords[0] + IN_FRONT[facing][0], coords[1] + IN_FRONT[facing][1])
     maze[coords[0]][coords[1]] = ICONS[facing]
     points[0] = (coords[0], coords[1])
-
 
 def iterate():
     global points, coords
@@ -118,12 +99,7 @@ def iterate():
             p(maze)
 
             inp = ''
-            # try:
-            #     inp = input_with_timeout('>', 0.2)
-            # except(TimeoutExpired):
-            #     pass
-            # else:
-            #     pass
+
             time.sleep(0.4)
             inp = f.read()[0::-1]
             # print(inp)
@@ -151,7 +127,5 @@ def iterate():
         f.close()
     print(f'Game Over! Score: {score}')
 
-
 if __name__ == '__main__':
     iterate()
-    
