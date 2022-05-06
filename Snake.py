@@ -61,7 +61,7 @@ def update_points():
 
 def turn(dir): # Turns the (character?)
     global maze, facing, coords
-    if (((dir == '')) or (facing == 'n' and BUTTONS[dir] == 's') or (facing == 'e' and BUTTONS[dir] == 'w') or (facing == 's' and BUTTONS[dir] == 'n') or (facing == 'w' and BUTTONS[dir] == 'e')):
+    if ((dir == '') or (facing == 'n' and BUTTONS[dir] == 's') or (facing == 'e' and BUTTONS[dir] == 'w') or (facing == 's' and BUTTONS[dir] == 'n') or (facing == 'w' and BUTTONS[dir] == 'e')):
         return
     facing = BUTTONS[dir]
     maze[coords[0]][coords[1]] = ICONS[facing]
@@ -98,7 +98,7 @@ def iterate():
         time.sleep(0.2)
 
         if msvcrt.kbhit():
-            inp = msvcrt.getch().decode("utf-8").lower() # getch() returns bytes data that we need to decode in order to read properly. i also forced lowercase which is optional but recommended
+            inp = msvcrt.getch().decode("utf-8").lower()
     
         turn(inp)
 
