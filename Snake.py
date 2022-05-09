@@ -41,7 +41,7 @@ maze = [
 START = (3, 3)
 coords = START
 facing = 'e'
-points.append(START)
+points.append((START[0],START[1], '>'))
 
 def p(maze): # Prints the maze.
     os.system('CLS')
@@ -55,9 +55,10 @@ def in_front() -> str:
     return maze[coords[0] + IN_FRONT[facing][0]][coords[1] + IN_FRONT[facing][1]]
 
 def update_points():
-    global maze, points
+    global maze
+    IN_FRONT_I = {v: k for k, v in IN_FRONT.items()}
     for i in range(1, len(points)):
-        maze[points[i][0]][points[i][1]] = 's'
+        maze[points[i][0]][points[i][1]] = ICONS[IN_FRONT_I[(points[i-1][0]-points[i][0], points[i-1][1]-points[i][1])]]
 
 def turn(dir): # Turns the (character?)
     global maze, facing, coords
